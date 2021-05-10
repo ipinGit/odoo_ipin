@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="work_order_print"
+            model="work.order"
+            string="Work Order Print"
+            report_type="qweb-pdf"
+            name="booking_order_IPIN_10052021.work_order_print_template"
+            file="booking_order_IPIN_10052021.work_order_print_template"
+        />
+    </data>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_work_order_print_template">
+            <t t-call="report.external_layout">
+                <div class="page">
+                    <table style="width: 100%; border: 1px solid black">
+                        <colgroup>
+                            <colgroup>
+                                <col style="width:25%"/>
+                                <col style="width:25%"/>
+                                <col style="width:25%"/>
+                                <col style="width:25%"/>
+                            </colgroup>
+                            <tr>
+                                <td colspan="4" style="border: 1px solid black; padding: 2px"><span t-field="doc.number"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black; padding: 2px">Team Name</td>
+                                <td style="border: 1px solid black; padding: 2px"><span t-field="doc.team.name"></span></td>
+                                <td style="border: 1px solid black; padding: 2px">Customer</td>
+                                <td style="border: 1px solid black; padding: 2px"><span t-field="doc.order_ref.partner_id.name"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid black; padding: 2px">Booking Order Ref</td>
+                                <td style="border: 1px solid black; padding: 2px"><span t-field="doc.order_ref.name"></span></td>
+                                <td style="border: 1px solid black; padding: 2px">Date</td>
+                                <td style="border: 1px solid black; padding: 2px"><span t-field="doc.date_start"/> - <span t-field="doc.date_end"/></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border: 1px solid black; padding: 2px; height: 100px;">
+                                    NOTES:<br/>
+                                    <span t-field="doc.notes"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="border: 1px solid black; padding: 2px; height: 50px">SIGNATURE</td>
+                            </tr>
+                            
+                        </colgroup>
+                    </table>
+                </div>
+            </t>
+
+        </template>
+
+        <template id="work_order_print_template">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="booking_order_IPIN_10052021.report_work_order_print_template"/>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
+    

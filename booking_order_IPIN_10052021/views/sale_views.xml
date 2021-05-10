@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="action_booking_orders" model="ir.actions.act_window">
+        <field name="name">Booking Orders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">sale.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,kanban,form,calendar,pivot,graph</field>
+        <field name="search_view_id" ref="sale.sale_order_view_search_inherit_sale"/>
+        <field name="context">{'from_booking_order': True}</field>
+        <field name="domain">[('is_booking_order', '=', True)]</field>
+    </record>
+
+	<menuitem id="booking_order_IPIN_10052021.booking_menu_id" name="Booking" parent="sales_team.menu_sales" sequence="99"/>
+
+	<menuitem action="action_booking_orders"
+            id="menu_booking_order" parent="booking_order_IPIN_10052021.booking_menu_id"
+            sequence="1"/>
+
+    <record id="view_sale_booking_order_form" model="ir.ui.view">
+            <field name="name">sale.order.booking.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="priority">100</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                
+                <field name="state" position="before">
+                	<group>
+                        <field name="booking_start"/>
+                        <field name="booking_end"/>
+                        <field name="team"/>
+                        <field name="team_leader"/>
+                        <field name="team_members" widget="many2many_tags"/>
+                    </group>
+                </field>
+
+                <button name="action_confirm" position="after">
+                    <button name="action_check_team_availibity" string="Check" type="object" />
+                </button>
+
+            </field>
+        </record>
+
+</odoo>
