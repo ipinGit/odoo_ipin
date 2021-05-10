@@ -11,7 +11,7 @@
                     <group>
                        <field name="name"/>
                        <field name="team_leader"/>
-                       <field name="team_members"/>
+                       <field name="team_members" widget="many2many_tags"/>
                     </group>
                 </form>
             </field>

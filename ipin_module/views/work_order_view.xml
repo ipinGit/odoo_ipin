@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
+       <record id="work_order_cancel_wizard_form_view" model="ir.ui.view">
+            <field name="name">work.order.cancel.wizard.form.view</field>
+            <field name="model">work.order.cancel.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Cancel Work Order">
+                    <group>
+                      <field name="reason"/>
+                    </group>
+                    <footer>
+                        <button string="Cancel Work Order" name="cancel_work_order" type="object" default_focus="1" class="btn-primary"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_work_order_cancel_wizard" model="ir.actions.act_window">
+            <field name="name">Cancel Work Order</field>
+            <field name="res_model">work.order.cancel.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="work_order_cancel_wizard_form_view"/>
+            <field name="target">new</field>
+        </record>
+
         
         <record id="work_order_form_view" model="ir.ui.view">
             <field name="name">work.order.view.form</field>
@@ -8,12 +33,21 @@
             <field name="priority">1</field>
             <field name="arch" type="xml">
                 <form string="Work Order">
+                  <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_start_work" string="Start Work" type="object" states="pending"/>
+                    <button name="action_end_work" string="End Work" type="object" states="progress"/>
+                    <button name="action_reset" string="Reset" type="object" states="progress"/>
+                    <button name="%(action_work_order_cancel_wizard)d" string="Cancel" type="action" />
+
+                  </header>
+                  <sheet>
                     <group>
                        <field name="number"/>
                        <field name="order_ref"/>
                        <field name="team"/>
                        <field name="team_leader"/>
-                       <field name="team_members"/>
+                       <field name="team_members" widget="many2many_tags"/>
                     </group>
                     <group>
                       <field name="planned_start"/>
@@ -22,6 +56,7 @@
                       <field name="date_end"/>                    
                     </group>
                      <field name="notes" class="oe_inline" placeholder="Notes for Work Order"/><div class="oe_clear"/>
+                   </sheet>
                 </form>
             </field>
         </record>

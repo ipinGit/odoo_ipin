@@ -16,6 +16,9 @@
         'views/sale_views.xml',
         'views/service_team_view.xml',
         'views/work_order_view.xml',
+        'data/sequence.xml',
+        'report/work_order.xml',
+        'report/report.xml',
     ],
     'installable': True,
 }

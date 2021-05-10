@@ -22,19 +22,22 @@
             <field name="model">sale.order</field>
             <field name="priority">100</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
-            <!-- <field name="groups_id" eval="[(5,)]"/> -->
             <field name="arch" type="xml">
                 
                 <field name="state" position="before">
                 	<group>
-                    <field name="booking_start"/>
-                    <field name="booking_end"/>
-                    <field name="team"/>
-                    <field name="team_leader"/>
-                    <field name="team_members" widget="many2many_tags"/>
-                </group>
+                        <field name="booking_start"/>
+                        <field name="booking_end"/>
+                        <field name="team"/>
+                        <field name="team_leader"/>
+                        <field name="team_members" widget="many2many_tags"/>
+                    </group>
                 </field>
-                
+
+                <button name="action_confirm" position="after">
+                    <button name="action_check_team_availibity" string="Check" type="object" />
+                </button>
+
             </field>
         </record>
 
