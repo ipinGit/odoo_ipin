@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="work_order_form_view" model="ir.ui.view">
+            <field name="name">work.order.view.form</field>
+            <field name="model">work.order</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Work Order">
+                    <group>
+                       <field name="number"/>
+                       <field name="order_ref"/>
+                       <field name="team"/>
+                       <field name="team_leader"/>
+                       <field name="team_members"/>
+                    </group>
+                    <group>
+                      <field name="planned_start"/>
+                      <field name="planned_end"/>
+                      <field name="date_start"/>
+                      <field name="date_end"/>                    
+                    </group>
+                     <field name="notes" class="oe_inline" placeholder="Notes for Work Order"/><div class="oe_clear"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="work_order_tree_view" model="ir.ui.view">
+            <field name="name">swork.order.view.tree</field>
+            <field name="model">work.order</field>
+            <field name="arch" type="xml">
+                <tree string="Work Order">
+                   <field name="number"/>
+                     <field name="order_ref"/>
+                     <field name="team"/>
+                     <field name="team_leader"/>
+               </tree>
+            </field>
+        </record>
+
+        <record id="work_order_search_view" model="ir.ui.view">
+            <field name="name">work.order.search</field>
+            <field name="model">work.order</field>
+            <field name="arch" type="xml">
+                <search string="Search Work Order">
+                    <field name="number"/>
+                   <!-- <field name="partner_id"/> -->
+                   <group expand="0" name="group_by" string="Group By">
+                       <filter name="leader" string="Leader" domain="[]" context="{'group_by' : 'team_leader'}" />
+                   </group>
+               </search>
+            </field>
+        </record>
+
+
+        <record id="action_work_order_open" model="ir.actions.act_window">
+             <field name="name">Work Order</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="res_model">work.order</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_type">form</field>
+             <field name="view_id" ref="ipin_module.work_order_tree_view"/>
+             <field name="search_view_id" ref="ipin_module.work_order_search_view"/>
+         </record>
+         <menuitem action="action_work_order_open"
+            id="menu_worke_order" parent="ipin_module.booking_menu_id"
+            sequence="2"/>
+    </data>
+</odoo>

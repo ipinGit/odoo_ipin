@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="service_team_form_view" model="ir.ui.view">
+            <field name="name">service.team.view.form</field>
+            <field name="model">service.team</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Service Team">
+                    <group>
+                       <field name="name"/>
+                       <field name="team_leader"/>
+                       <field name="team_members"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_team_tree_view" model="ir.ui.view">
+            <field name="name">service.team.view.tree</field>
+            <field name="model">service.team</field>
+            <field name="arch" type="xml">
+                <tree string="Service Team">
+                   <field name="name"/>
+                   <field name="team_leader"/>
+                   <field name="team_members"/>
+               </tree>
+            </field>
+        </record>
+
+        <record id="service_team_search_view" model="ir.ui.view">
+            <field name="name">service.team.view.search</field>
+            <field name="model">service.team</field>
+            <field name="arch" type="xml">
+                <search string="Search Service Team">
+                    <field name="name"/>
+                   <!-- <field name="partner_id"/> -->
+                   <group expand="0" name="group_by" string="Group By">
+                       <filter name="leader" string="Leader" domain="[]" context="{'group_by' : 'team_leader'}" />
+                   </group>
+               </search>
+            </field>
+        </record>
+
+
+        <record id="action_service_team_open" model="ir.actions.act_window">
+             <field name="name">Service Team</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="res_model">service.team</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_type">form</field>
+             <field name="view_id" ref="ipin_module.service_team_tree_view"/>
+             <field name="search_view_id" ref="ipin_module.service_team_search_view"/>
+         </record>
+         <menuitem action="action_service_team_open"
+            id="menu_service_team" parent="ipin_module.booking_menu_id"
+            sequence="3"/>
+    </data>
+</odoo>
