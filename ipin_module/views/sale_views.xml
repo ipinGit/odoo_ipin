@@ -23,7 +23,6 @@
             <field name="priority">100</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                
                 <field name="state" position="before">
                 	<group>
                         <field name="booking_start"/>
@@ -37,6 +36,12 @@
                 <button name="action_confirm" position="after">
                     <button name="action_check_team_availibity" string="Check" type="object" />
                 </button>
+
+                <xpath expr="//div[@class='oe_title']" position="after">
+                    <group class="oe_right">
+                        <field name="created_wo"/>
+                    </group>
+                </xpath>
 
             </field>
         </record>

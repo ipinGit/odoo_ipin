@@ -66,10 +66,16 @@
             <field name="model">work.order</field>
             <field name="arch" type="xml">
                 <tree string="Work Order">
-                   <field name="number"/>
-                     <field name="order_ref"/>
-                     <field name="team"/>
-                     <field name="team_leader"/>
+                  <field name="number"/>
+                  <field name="order_ref"/>
+                  <field name="team"/>
+                  <field name="team_leader"/>
+                  <field name="team_members" widget="many2many_tags"/>
+                  <field name="planned_start"/>
+                  <field name="planned_end"/>
+                  <field name="date_start"/>
+                  <field name="date_end"/>
+                  <field name="state"/>
                </tree>
             </field>
         </record>

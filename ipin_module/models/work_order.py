@@ -17,17 +17,26 @@ class WorkOrder(models.Model):
                             ('done', 'Done'),
                             ('cancelled', 'Cancelled')], string='Status', default='pending', index=True, track_visibility='onchange', copy=False) # j. State: selection (Pending, In Progress, Done, Cancelled)
     notes = fields.Text('Notes') # k. Notes: textarea
-
+    sequence_id = fields.Many2one('ir.sequence', string="WO Sequence")
     @api.onchange('team')
     def onchange_order_team(self):
         self.team_leader = self.team.team_leader
         self.team_members = self.team.team_members
 
     @api.model
+    def create(self, vals):
+        if not vals.get('sequence_id'):
+            # read from xml data
+            seq = self.env.ref('ipin_module.sequence_work_order_id')
+            vals.update({'sequence_id': seq.id})
+            seq._next()
+        return super(WorkOrder, self).create(vals)
+
+    @api.model
     def default_get(self, default_fields):
         seq = self.env.ref('ipin_module.sequence_work_order_id')
         res = super(WorkOrder, self).default_get(default_fields)
-        number_next = seq.number_next_actual + seq.number_increment
+        number_next = seq.number_next_actual
         name_seq = seq.get_next_char(number_next)
         res['number'] = name_seq
         return res
@@ -49,6 +58,14 @@ class WorkOrder(models.Model):
     @api.multi
     def action_cancel(self):
         self.state = 'cancelled'
+
+    @api.multi
+    @api.depends('number')
+    def name_get(self):
+        result = []
+        for wo in self:
+            result.append((wo.id, wo.number))
+        return result
 
     
 
